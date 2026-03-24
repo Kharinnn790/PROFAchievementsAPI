@@ -1,0 +1,8 @@
+# backend/requirements.txt
+fastapi[standard]          # Основной фреймворк (включает uvicorn автоматически)
+uvicorn                    # ASGI-сервер для запуска FastAPI
+psycopg2-binary           # Драйвер PostgreSQL
+python-dotenv             # Работа с .env файлами
+sqlalchemy                # ORM для работы с БД
+alembic                   # Миграции базы данных (опционально)
+httpx                     # Для тестирования API (опционально)
