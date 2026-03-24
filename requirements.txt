@@ -1,0 +1,18 @@
+PROFACHIEVEMENTSAPI/
+│
+├── backend/
+│   ├── app/
+│   ├── requirements.txt          # Только бэкенд-пакеты
+│   └── .env
+│
+├── frontend/
+│   ├── pages/
+│   ├── components/
+│   ├── app.py
+│   └── requirements.txt          # Только фронтенд-пакеты
+│
+├── venv/                         # Общее виртуальное окружение (все пакеты тут)
+│
+├── requirements.txt               # ОБЩИЙ файл (объединяет оба)
+│
+└── run.py                         # Скрипт запуска
