@@ -1,0 +1,9 @@
+# frontend/requirements.txt
+streamlit                 # Основной фреймворк для дашбордов
+pandas                    # Работа с данными (DataFrame)
+plotly                    # Интерактивные графики
+matplotlib                # Базовые графики (опционально, вместо plotly)
+altair                    # Альтернативная библиотека графиков
+numpy                     # Числовые операции
+requests                  # HTTP-запросы к FastAPI API
+pillow                    # Работа с изображениями
