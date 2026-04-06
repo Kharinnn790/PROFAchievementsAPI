@@ -1,25 +1,18 @@
-
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-import os
-from dotenv import load_dotenv
-
 from .database import engine, Base
 from .api import auth
 
-# Загрузка переменных окружения
-load_dotenv()
-
-# Создание таблиц в БД
+# Создание таблиц
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
     title="PROFAchievements API",
-    description="API для мониторинга и визуализации достижений выпускников",
+    description="API для мониторинга достижений выпускников",
     version="1.0.0"
 )
 
-# CORS настройки
+# CORS
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:8501", "http://127.0.0.1:8501"],
@@ -28,7 +21,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Регистрация роутеров
+# Роутеры
 app.include_router(auth.router, prefix="/api/v1")
 
 @app.get("/")

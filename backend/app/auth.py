@@ -1,4 +1,3 @@
-
 from datetime import datetime, timedelta
 from typing import Optional
 from jose import JWTError, jwt
@@ -11,7 +10,6 @@ from . import models, schemas
 
 load_dotenv()
 
-# Настройки JWT
 SECRET_KEY = os.getenv("SECRET_KEY", "your-secret-key-change-in-production")
 ALGORITHM = os.getenv("ALGORITHM", "HS256")
 ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", 30))
@@ -19,15 +17,12 @@ ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", 30))
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
-    """Проверка пароля"""
     return pwd_context.verify(plain_password, hashed_password)
 
 def get_password_hash(password: str) -> str:
-    """Хеширование пароля"""
     return pwd_context.hash(password)
 
 def authenticate_user(db: Session, username: str, password: str):
-    """Аутентификация пользователя"""
     user = db.query(models.User).filter(
         (models.User.username == username) | (models.User.email == username)
     ).first()
@@ -39,7 +34,6 @@ def authenticate_user(db: Session, username: str, password: str):
     return user
 
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
-    """Создание JWT токена"""
     to_encode = data.copy()
     if expires_delta:
         expire = datetime.utcnow() + expires_delta
@@ -51,7 +45,6 @@ def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
     return encoded_jwt
 
 def get_current_user(db: Session, token: str) -> Optional[models.User]:
-    """Получение текущего пользователя по токену"""
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         user_id: int = payload.get("sub")
@@ -62,3 +55,9 @@ def get_current_user(db: Session, token: str) -> Optional[models.User]:
     
     user = db.query(models.User).filter(models.User.id == user_id).first()
     return user
+
+def get_current_active_user(current_user: models.User) -> models.User:
+    """Получение активного пользователя (для использования в Depends)"""
+    if not current_user.is_active:
+        return None
+    return current_user
