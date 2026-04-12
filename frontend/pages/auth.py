@@ -1,27 +1,37 @@
-
 import streamlit as st
 from utils.auth import register_user, login_user, is_authenticated
 
-def show_auth_page():
-    """Отображение страницы аутентификации"""
-    
+def show_auth_page():   
     st.set_page_config(
         page_title="PROFAchievements - Вход",
         page_icon="🎓",
         layout="centered"
     )
-    
-    # Стилизация
+    #   css
     st.markdown("""
         <style>
             .stApp {
-                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
             }
             .auth-container {
                 background: white;
                 padding: 2rem;
                 border-radius: 15px;
                 box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            }
+            .auth-container h2 {
+                color: #333333;
+                text-align: center;
+                margin-bottom: 1.5rem;
+            }
+            .stTextInput label, .stButton button {
+                color: #333333;
+            }
+            .demo-link {
+                text-align: center;
+                margin-top: 1rem;
+                font-size: 0.9rem;
+                color: #555555;
             }
         </style>
     """, unsafe_allow_html=True)
